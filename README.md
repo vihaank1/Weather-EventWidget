@@ -672,3 +672,4 @@ the University of Georgia or the University System of Georgia.
 **Feature Preparation Timestamps:**
 =======
 # cs1302-testRepo
+This is a test repository for learning Git and GitHub workflows.
