@@ -57,7 +57,7 @@ get the information or content that they want. Your app needs to do more
 than just download and display responses from the external APIs, it
 needs to combine the responses in some meaningful way. Combining
 responses means that the response from one API should be used (at least
-in part) to query the second API (see below for more details). 
+in part) to query the second API (see below for more details).
 Your application must automate the process of connecting two different APIs for a single purpose.
 
 -   Many services provide **free access** to their RESTful JSON APIs --
@@ -80,7 +80,7 @@ Your application must automate the process of connecting two different APIs for 
 
 	Please make sure you only use APIs that are safe for work and
 	adhere to the *Non-Discrimination and Anti-Harassment Policy* mentioned
-	later in the project's requirements. 
+	later in the project's requirements.
 
 -   You **must** choose your APIs according to the following guidelines.
     Failure to do so may have a negative impact on your project grade:
@@ -288,11 +288,11 @@ may lead to an academic honesty violation.
 ### DEADLINE.md (10 points)
 
 The included `DEADLINE.md` file must adequately describe your application,
-explain the APIs used (the URLs used to request data, and the rate limits (if any)), 
+explain the APIs used (the URLs used to request data, and the rate limits (if any)),
 and provide thoughtful comments on what you learned. More
-details can be found in the provided 
+details can be found in the provided
 [`DEADLINE.md` template](https://github.com/cs1302uga/cs1302-api-app/blob/main/meta/DEADLINE.md).
-  
+
 ### Local Assets / Resources (10 points)
 
 All assets (e.g., images), except for assets discovered using an
@@ -370,11 +370,11 @@ strings using `fromJson` are described in the
 ### No use of the `openStream()` or similar methods in `URL`
 
 You may NOT use or mention the `openStream()`, `openConnection()` and `getContent()`
-methods provided by the `java.net.URL` class nor should you use or mention `java.net.HttpURLConnection`. 
-If you need to access web content, then use the `HttpClient`, `HttpRequest`, and `HttpResponse<T>` 
+methods provided by the `java.net.URL` class nor should you use or mention `java.net.HttpURLConnection`.
+If you need to access web content, then use the `HttpClient`, `HttpRequest`, and `HttpResponse<T>`
 types in the `java.net.http` package as described in the
 [HTTP chapter](https://cs1302uga.github.io/cs1302-book/java/http/http-index.html). Use of
-other types in the `java.net.http` package is allowed if they are used to support `HttpClient`, 
+other types in the `java.net.http` package is allowed if they are used to support `HttpClient`,
 `HttpRequest`, and/or `HttpResponse<T>`.
 
 ### Final Project == Final Exam
@@ -670,3 +670,5 @@ the University of Georgia or the University System of Georgia.
 <hr>
 
 **Feature Preparation Timestamps:**
+=======
+# cs1302-testRepo
