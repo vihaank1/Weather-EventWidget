@@ -242,7 +242,7 @@ public class ApiApp extends Application {
                 WeatherResponse weather = task.getValue();
                 if (weather.coord == null) {
                     Platform.runLater(() -> statusLabel.setText("Invalid format for US City. " +
-                                                 "Use: City,State,US (e.g., Atlanta,GA,US)"));
+                                                 "Use: City,State,US (e.g., Chicago,IL,US)"));
                     return;
                 }
 
@@ -292,14 +292,15 @@ public class ApiApp extends Application {
             //  City + State + US (e.g., Atlanta,GA,US)
         } else {
             Platform.runLater(() -> statusLabel.setText(
-                "Invalid input. Example inputs allowed: Paris,FR (International) or Houston,TX,US"
+                "Invalid input. Example inputs are: " +
+                "For international city- Paris,FR and US city- Houston,TX,US"
             ));
             return false;
         } // Invalid format
 
         // Validate country
         if (result[2].isEmpty()) {
-            Platform.runLater(() -> statusLabel.setText("Missing country code (e.g., London,GB)"));
+            Platform.runLater(() -> statusLabel.setText("Missing country code (e.g., Toronto,CA)"));
             return false;
         }
 
