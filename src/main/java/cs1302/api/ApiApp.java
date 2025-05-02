@@ -44,7 +44,8 @@ public class ApiApp extends Application {
     private final Gson gson = new Gson();
 
     /**
-     * ....
+     * Represents the JSON response structure from OpenWeatherMap API. Extracts coordinates for
+     * Ticketmaster.
      */
     public static class WeatherResponse {
         public String name;
@@ -52,7 +53,7 @@ public class ApiApp extends Application {
         public Main main;
 
         /**
-         * ...
+         * Geographic coordinates from OpenWeatherMap.
          */
         public static class Coord {
             public double lat;
@@ -60,7 +61,7 @@ public class ApiApp extends Application {
         }
 
         /**
-         * ...
+         * Contains temperature data from OpenWeatherMap.
          */
         public static class Main {
             public double temp;
@@ -69,21 +70,21 @@ public class ApiApp extends Application {
 
 
     /**
-     * ....
+     * Represents the JSON response structure from Ticketmaster API.
      */
     public static class EventsResponse {
         @SerializedName("_embedded")
         public Embedded embedded;
 
         /**
-         * ...
+         * Here is a wrapper for an array of events.
          */
         public static class Embedded {
             public Event[] events;
         }
 
         /**
-         * ...
+         * Here are Individual event details from Ticketmaster.
          */
         public static class Event {
             public String name;
@@ -94,28 +95,28 @@ public class ApiApp extends Application {
         }
 
         /**
-         * ...
+         * Contains venue array for venues.
          */
         public static class EventEmbedded {
             public Venue[] venues;
         }
 
         /**
-         * ...
+         * This contains event date information.
          */
         public static class Dates {
             public Start start;
         }
 
         /**
-         * ...
+         * This contains localized start date info.
          */
         public static class Start {
             public String localDate;
         }
 
         /**
-         * ...
+         * Here are venue details as well.
          */
         public static class Venue {
             public String name;
@@ -133,7 +134,8 @@ public class ApiApp extends Application {
 
 
     /**
-     * ...
+     * Initializes API keys from config.properties file. We disable search functionality if
+     * keys aren't there or don't work.
      */
     @Override
     public void init() {
@@ -167,10 +169,12 @@ public class ApiApp extends Application {
 
         // some labels to display information
         this.cityInput = new TextField();
+        this.cityInput.setPromptText("Format: for US: City,State Code,Country Code"
+                         + "(e.g., Athens,GA,US) and International: City,Country Code (Calgary,CA");
         this.searchButton = new Button("Search");
         this.weatherLabel = new Label();
         this.eventsList = new ListView<>();
-        this.statusLabel = new Label("Enter a city to find weather and events");
+        this.statusLabel = new Label("Enter a city to find weather and events!!");
 
         if (!apiKeysValid) {
             statusLabel.setText("Error: API keys not loaded");
@@ -178,16 +182,16 @@ public class ApiApp extends Application {
         }
 
         searchButton.setOnAction(e -> {
-            String city = cityInput.getText().trim();
-            if (!city.isEmpty()) {
-                fetchWeather(city);
+            String input = cityInput.getText().trim();
+            if (!input.isEmpty()) {
+                fetchWeather(input);
             }
         });
 
         // setup scene
         root.getChildren().addAll(banner, cityInput, searchButton, weatherLabel, eventsList,
                                   statusLabel);
-        scene = new Scene(root, 650, 650);
+        scene = new Scene(root, 640, 650);
 
         // setup stage
         stage.setTitle("Event Forecast!");
@@ -200,14 +204,28 @@ public class ApiApp extends Application {
 
 
     /**
-     * ...
-     * @param city
+     * Fetches weather info from OpenWeatherMap API. City name is used as input.
+     * @param input Target city name for weather search (state code and country where needed).
      */
-    private void fetchWeather(String city) {
+    private void fetchWeather(String input) {
         try {
+            String[] best = new String[3];
+
+            // Validate Input
+            if (!validateInput(input, best)) {
+                return;
+            }
+
+            String city = best[0], state = best[1], country = best[2];
+
             String encodedCity = URLEncoder.encode(city, StandardCharsets.UTF_8);
-            String url = "https://api.openweathermap.org/data/2.5/weather?q=" + encodedCity +
-                "&units=metric&APPID=" + openWeatherKey;
+            String encodedState = URLEncoder.encode(state, StandardCharsets.UTF_8);
+            String encodedCountry = URLEncoder.encode(country, StandardCharsets.UTF_8);
+
+            String url = "https://api.openweathermap.org/data/2.5/weather?q=" + encodedCity
+                + (!state.isEmpty() ? "," + encodedState : "")
+                + (!country.isEmpty() ? "," + encodedCountry : "")
+                + "&units=metric&APPID=" + openWeatherKey;
 
             Task<WeatherResponse> task = new Task<>() {
                     @Override
@@ -223,13 +241,15 @@ public class ApiApp extends Application {
             task.setOnSucceeded(e -> {
                 WeatherResponse weather = task.getValue();
                 if (weather.coord == null) {
-                    Platform.runLater(() -> statusLabel.setText("Invalid city or no coord"));
+                    Platform.runLater(() -> statusLabel.setText("Invalid format for US City. " +
+                                                 "Use: City,State,US (e.g., Atlanta,GA,US)"));
                     return;
                 }
 
                 Platform.runLater(() -> {
-                    weatherLabel.setText(String.format("%s: %.1f°C",
-                                                                 weather.name, weather.main.temp));
+                    weatherLabel.setText(String.format("%s: %.1f°F",
+                                                                 weather.name,
+                                                       (weather.main.temp * 9.0 / 5.0 + 32)));
                 });
                 fetchEvents(weather.coord.lat, weather.coord.lon);
             });
@@ -242,15 +262,72 @@ public class ApiApp extends Application {
             new Thread(task).start();
         } catch (Exception e) {
             Platform.runLater(() ->
-                               statusLabel.setText("This isn't a valid city format"));
+                               statusLabel.setText("Invalid format. Use: City,State(US only),"
+                                                   + "Country"));
         }
 
-    }
+    }  // fetchWeather
+
 
     /**
-     * ...
-     * @param lat ....
-     * @param lon ...
+     * Validates and parses city/state/country input.
+     * @param input city location
+     * @param result Output array for city, state (US input only), country
+     * @return true if the input is valid, false otherwise
+     */
+    private boolean validateInput(String input, String[] result) {
+        String[] parts = input.split(",");
+        for (int i = 0; i < parts.length; i++) {
+            parts[i] = parts[i].trim();
+        }
+        // City + Country (e.g., London,GB)
+        if (parts.length == 2) {
+            result[0] = parts[0]; // City
+            result[2] = parts[1]; // Country
+            result[1] = "";       // State (empty)
+        } else if (parts.length == 3 && parts[2].equalsIgnoreCase("US")) {
+            result[0] = parts[0]; // City
+            result[1] = parts[1]; // State
+            result[2] = parts[2]; // Country (US)
+            //  City + State + US (e.g., Atlanta,GA,US)
+        } else {
+            Platform.runLater(() -> statusLabel.setText(
+                "Invalid input. Example inputs allowed: Paris,FR (International) or Houston,TX,US"
+            ));
+            return false;
+        } // Invalid format
+
+        // Validate country
+        if (result[2].isEmpty()) {
+            Platform.runLater(() -> statusLabel.setText("Missing country code (e.g., London,GB)"));
+            return false;
+        }
+
+        // Validate US states
+        if (result[2].equalsIgnoreCase("US") && result[1].isEmpty()) {
+            Platform.runLater(() -> statusLabel.setText(
+                                  "For US cities, include state code (e.g., Austin,TX,US)"
+            ));
+            return false;
+        }
+
+        // Validate non-US states
+        if (!result[2].equalsIgnoreCase("US") && !result[1].isEmpty()) {
+            Platform.runLater(() -> statusLabel.setText(
+                                  "State codes only allowed for US (e.g., Paris,FR)"
+            ));
+            return false;
+        }
+
+        return true;
+    }  // validateInput
+
+
+    /**
+     * Queries Ticketmaster Discovery API using geographic coordinates. It makes requests with
+     * particular parameters like radius, event type, etc.
+     * @param lat Latitude from OpenWeatherMap response
+     * @param lon Longitude from OpenWeatherMap response
      */
     private void fetchEvents(double lat, double lon) {
         String url = "https://app.ticketmaster.com/discovery/v2/events.json" +
@@ -277,7 +354,7 @@ public class ApiApp extends Application {
 
             if (response == null || response.embedded == null ||
                 response.embedded.events == null) {
-                statusLabel.setText("No events found, try major US cities");
+                statusLabel.setText("No events found sorry :(");
                 return;
             }
 
@@ -301,7 +378,7 @@ public class ApiApp extends Application {
                 Platform.runLater(() -> eventsList.getItems().add(entry));
             }
             Platform.runLater(() ->
-                statusLabel.setText("Found " + eventsList.getItems().size() + " events"));
+                statusLabel.setText("Here are " + eventsList.getItems().size() + " events :)"));
         });
 
         task.setOnFailed(e -> {
