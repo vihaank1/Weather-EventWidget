@@ -70,8 +70,9 @@ https://app.ticketmaster.com/discovery/v2/events.json?latlong=30.2672,-97.7431&r
 Family,Music,Sports&size=15&sort=date,asc&apikey=ycntiTB7iRIoiqThruMhKk9K3ipSvaWV
 ```
 
-> latlong values come directly from OpenWeatherMap response. classificationName=Family,Music,Sports filters events to family-friendly, music,
-and sports. size=15 returns up to 15 events. sort=date,asc lists events chronologically (soonest first).
+> latlong parameter values in Ticketmaster URIs come directly from latitude and longitude values from OpenWeatherMap response.
+classificationName=Family,Music,Sports filters events to family-friendly, music,and sports.
+size=15 returns up to 15 events. sort=date,asc lists events chronologically (soonest first).
 
 
 ## Part 2: New
@@ -84,7 +85,7 @@ Input Validation: Ensuring users enter City,CountryCode (e.g., Paris,FR) or City
 Threaded API Calls: Using JavaFX Task to fetch weather and events without freezing the UI, and
 ISO Code Usage: How to structure API requests with ISO 3166 codes (e.g., FR for France, CA for Canada), etc.
 I must say typing London,GB and seeing many fun events pop up in London was thrilling!
-
+I enjoyed learning more about branching and merging and implementing the concepts behind it in a real time API project!
 
 ## Part 3: Retrospect
 
@@ -98,8 +99,9 @@ would help avoid hitting rate limits for users; and allow a retry for failed req
 temporary issues (e.g., Wi-Fi drops) for users.
 
 
+### Additional User References
 
-### ISO Code Clarification
+ISO Code Clarification
 Users can find valid codes through:
 - Official [ISO 3166 Country Codes](https://www.iso.org/obp/ui/#search) portal
 - US state codes follow [ANSI US State Codes](https://www.census.gov/library/reference/code-lists/ansi.html) standard
@@ -110,8 +112,7 @@ The app now includes strict input validation that:
 - Requires country codes for all searches
 - Enforces state codes for US locations
 
+For example:
   London,GB → London, United Kingdom
-
   Montreal,CA → Montreal, Canada
-
   Austin,TX,US → Austin, Texas, US

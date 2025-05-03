@@ -167,7 +167,7 @@ public class ApiApp extends Application {
         banner.setPreserveRatio(true);
         banner.setFitWidth(640);
 
-        // some labels to display information
+        // some labels to display information to user
         this.cityInput = new TextField();
         this.cityInput.setPromptText("Format: for US: City,State Code,Country Code"
                          + "(e.g., Athens,GA,US) and International: City,Country Code (Calgary,CA");
@@ -191,7 +191,7 @@ public class ApiApp extends Application {
         // setup scene
         root.getChildren().addAll(banner, cityInput, searchButton, weatherLabel, eventsList,
                                   statusLabel);
-        scene = new Scene(root, 640, 650);
+        scene = new Scene(root, 640, 710);
 
         // setup stage
         stage.setTitle("Event Forecast!");
