@@ -113,6 +113,7 @@ The app now includes strict input validation that:
 - Enforces state codes for US locations
 
 For example:
-  London,GB → London, United Kingdom
-  Montreal,CA → Montreal, Canada
-  Austin,TX,US → Austin, Texas, US
+
+- London,GB → London, United Kingdom
+- Montreal,CA → Montreal, Canada
+- Austin,TX,US → Austin, Texas, US

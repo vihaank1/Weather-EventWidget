@@ -24,13 +24,6 @@ Markdown is transformed into nice-looking HTML.
 > you should list it as "Assumed proprietary: using under academic fair use."
 > instead of leaving the license information blank.
 
-* CSCI 1302 Banner Image readme-banner.png
-  - `resources/readme-banner.png`
-  - CSCI 1302 at University of Georgia. 2024.
-  - https://github.com/cs1302uga/cs1302-api-app/blob/main/resources/readme-banner.png
-  - Assumed proprietary: using under academic fair use.
-
-
 * TomorrowLand Outdoor Event Image Outdoor-event.png
   - `resources/Outdoor-event.png`
   - Katarina Faoro. 2025.
