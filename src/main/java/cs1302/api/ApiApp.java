@@ -162,7 +162,7 @@ public class ApiApp extends Application {
         this.stage = stage;
 
         // demonstrate how to load local asset using "file:resources/"
-        Image bannerImage = new Image("file:resources/readme-banner.png");
+        Image bannerImage = new Image("file:resources/Outdoor-event.png");
         ImageView banner = new ImageView(bannerImage);
         banner.setPreserveRatio(true);
         banner.setFitWidth(640);
@@ -171,7 +171,7 @@ public class ApiApp extends Application {
         this.cityInput = new TextField();
         this.cityInput.setPromptText("Format: for US: City,State Code,Country Code"
                          + "(e.g., Athens,GA,US) and International: City,Country Code (Calgary,CA");
-        this.searchButton = new Button("Search");
+        this.searchButton = new Button("Search location");
         this.weatherLabel = new Label();
         this.eventsList = new ListView<>();
         this.statusLabel = new Label("Enter a city to find weather and events!!");
