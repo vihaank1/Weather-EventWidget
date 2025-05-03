@@ -14,14 +14,25 @@ Markdown is transformed into nice-looking HTML.
 
 > **Also, include the GitHub `https` URL to your repository.**
 
-**Event Forecast** is a JavaFX application that helps users discover local weather
-conditions and nearby events. By integrating two external APIs:
+I’ve built an app called **Event Forecast** that helps users discover weather conditions and events happening in a location.
+Event Forecast is a JavaFX app to check the weather and discover exciting events happening by integrating two external APIs.
+
 1. **OpenWeatherMap API**: Provides real-time weather data and geographic coordinates
 2. **Ticketmaster Discovery API**: Finds events near the coordinates from the weather data
 
-Users can search using:
-- International cities: `City,CountryCode` (e.g., `Paris,FR`)
-- US cities: `City,StateCode,US` (e.g., `Atlanta,GA,US`)
+Here’s How It Works:
+1. Enter a City
+
+- For international cities: `London,GB' (`City, Country Code`).
+- For US cities: `Atlanta,GA,US` (`City, State Code, US`).
+
+2. Get Instant Weather
+- See the current temperature (°F), city name, and the weather is up-to-date.
+
+3- Discover TicketMaster Events
+Browse family-friendly, music, or sports events—all within a 15-mile radius of the search location.
+Events are sorted by date (soonest first).
+
 
 GitHub Repository:
 https://github.com/vihaank1/cs1302-api-app
@@ -80,12 +91,17 @@ size=15 returns up to 15 events. sort=date,asc lists events chronologically (soo
 > What is something new and/or exciting that you learned from working
 > on this project?
 
-I learned about Secure API Key Management: Storing keys in config.properties to avoid hardcoding and using environment variables for deployment,
-Input Validation: Ensuring users enter City,CountryCode (e.g., Paris,FR) or City,StateCode,US (e.g., Austin,TX,US) to avoid ambiguous results,
+Through this project, I learned in-depth how to design a JavaFX desktop application and event handling with the JavaFX app.
+I learned how to call APIs such as OpenWeatherMap API and Ticketmaster Discovery API. I understood how to get JSON responses
+from these APIs and show them as output in the JavaFX application.
+
+I enjoyed learning more about Git branching and merging and implementing the concepts behind it in a real time API project.
+Additionally, I learned about Secure API Key Management: Storing keys in config.properties to avoid hardcoding and using
+environment variables for deployment,Input Validation: Ensuring users enter City,CountryCode (e.g., Paris,FR)
+or City,StateCode,US (e.g., Austin,TX,US) to avoid ambiguous results,
 Threaded API Calls: Using JavaFX Task to fetch weather and events without freezing the UI, and
 ISO Code Usage: How to structure API requests with ISO 3166 codes (e.g., FR for France, CA for Canada), etc.
 I must say typing London,GB and seeing many fun events pop up in London was thrilling!
-I enjoyed learning more about branching and merging and implementing the concepts behind it in a real time API project!
 
 ## Part 3: Retrospect
 
