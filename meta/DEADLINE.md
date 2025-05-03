@@ -20,18 +20,17 @@ Event Forecast is a JavaFX app to check the weather and discover exciting events
 1. **OpenWeatherMap API**: Provides real-time weather data and geographic coordinates
 2. **Ticketmaster Discovery API**: Finds events near the coordinates from the weather data
 
-Here’s How It Works:
+**Here’s How It Works:**
 1. Enter a City
-
 - For international cities: `London,GB' (`City, Country Code`).
 - For US cities: `Atlanta,GA,US` (`City, State Code, US`).
 
 2. Get Instant Weather
 - See the current temperature (°F), city name, and the weather is up-to-date.
 
-3- Discover TicketMaster Events
-Browse family-friendly, music, or sports events—all within a 15-mile radius of the search location.
-Events are sorted by date (soonest first).
+3. Discover TicketMaster Events
+- Browse family-friendly, music, or sports events—all within a 15-mile radius of the search location.
+- Events are sorted by date (soonest first).
 
 
 GitHub Repository:
