@@ -3,7 +3,7 @@ package cs1302.api;
 import javafx.application.Application;
 
 /**
- * Driver for the {@code ApiApp} class.
+ * Here is a driver for the {ApiApp} class.
  */
 public class ApiDriver {
 
