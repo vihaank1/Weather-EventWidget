@@ -1,4 +1,4 @@
-# Deadline
+# Info
 
 
 ## Part 1.1: App Description
